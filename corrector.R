@@ -38,3 +38,11 @@ for (cale in fisiere_scor) {
 }
 
 evalua_df <- do.call(rbind, evalua_list) %>% arrange(surnames)
+
+# Încărcăm lista oficială de înscriere (AlumnosTD25_26.xlsx)
+alumni_oficial <- read_excel("data/AlumnosTD25_26.xlsx")
+
+# Combinăm datele (Left Join)
+# Folosim 'Apellido(s)' din Excel și 'surnames' din extragerea noastră
+alumni_final <- alumni_oficial %>%
+  left_join(evalua_df, by = c("Apellido(s)" = "surnames"))
